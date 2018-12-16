@@ -1,11 +1,17 @@
 package com.learning.cousiyvan.weatherapp.activities
 
+import android.app.DownloadManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.learning.cousiyvan.weatherapp.R
 import com.learning.cousiyvan.weatherapp.adapters.ForecastListAdapter
+import com.learning.cousiyvan.weatherapp.data.Request
+import com.learning.cousiyvan.weatherapp.domain.commands.RequestForecastCommand
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
     private val items = listOf(
@@ -21,8 +27,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val forecastList = findViewById(R.id.forecast_list) as RecyclerView
         forecastList.layoutManager = LinearLayoutManager(this)
-        forecastList.adapter = ForecastListAdapter(items)
+        // forecastList.adapter = ForecastListAdapter(items)
+
+        doAsync() {
+            val result = RequestForecastCommand("94043").execute()
+            uiThread {
+                forecastList.adapter = ForecastListAdapter(result) }
+        }
     }
 }
