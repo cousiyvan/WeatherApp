@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.Toast
 import com.learning.cousiyvan.weatherapp.R
 import com.learning.cousiyvan.weatherapp.adapters.ForecastListAdapter
 import com.learning.cousiyvan.weatherapp.data.Request
 import com.learning.cousiyvan.weatherapp.domain.commands.RequestForecastCommand
+import com.learning.cousiyvan.weatherapp.domain.model.Forecast
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         doAsync() {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(result) }
+                forecastList.adapter = ForecastListAdapter(result) { toast(it.date) }
+            }
         }
     }
 }

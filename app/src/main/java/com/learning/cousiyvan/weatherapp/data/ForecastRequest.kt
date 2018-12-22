@@ -17,7 +17,7 @@ class ForecastRequest(private val zipCode: String) {
             Log.d(javaClass.simpleName, "forecast json: $forecastJsonStr")
             return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
         } catch (exc: Exception) {
-            Log.e(javaClass.simpleName, "Error: ${exc.printStackTrace()}");
+            Log.e(javaClass.simpleName, "Error: ${exc.message}");
             return Gson().fromJson("", ForecastResult::class.java)
         }
 
