@@ -9,7 +9,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ForecastDataMapper {
-    fun convertFromDataModel(forecast: ForecastResult): ForecastList = ForecastList(forecast.city.name, forecast.city.country, convertForecastListToDomain(forecast.list))
+    fun convertFromDataModel(forecast: ForecastResult): ForecastList = ForecastList(12345L , forecast.city.name, forecast.city.country, convertForecastListToDomain(forecast.list))
 
     private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
         return list.mapIndexed { i, forecast ->
@@ -19,7 +19,7 @@ class ForecastDataMapper {
     }
 
     private fun convertForecastItemToDomain(forecast: Forecast): ModelForecast {
-        return ModelForecast(convertDate(forecast.dt), forecast.weather[0].description, forecast.temp_max.toInt(), forecast.temp_min.toInt(), generateIconUrl(forecast.weather[0].icon))
+        return ModelForecast(forecast.dt, forecast.weather[0].description, forecast.temp_max.toInt(), forecast.temp_min.toInt(), generateIconUrl(forecast.weather[0].icon))
     }
 
     private fun generateIconUrl(iconCode: String): String = "http:://openweathermap.org/img/w/$iconCode.png"

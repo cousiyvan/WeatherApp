@@ -1,6 +1,8 @@
 package com.learning.cousiyvan.weatherapp.data.db
 
+import android.text.method.TextKeyListener.clear
 import com.learning.cousiyvan.weatherapp.data.db.utils.ForecastDbHelper
+import com.learning.cousiyvan.weatherapp.domain.datasource.ForecastDataSource
 import com.learning.cousiyvan.weatherapp.domain.model.ForecastList
 import com.learning.cousiyvan.weatherapp.extensions.clear
 import com.learning.cousiyvan.weatherapp.extensions.parseList
@@ -9,12 +11,12 @@ import com.learning.cousiyvan.weatherapp.extensions.toVarargArray
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
-class ForecastDb {
-    private val forecastDbHelper: ForecastDbHelper =
-        ForecastDbHelper.instance
-    private val dataMapper: DbDataMapper = DbDataMapper()
+class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance, private val dataMapper: DbDataMapper = DbDataMapper()) :
+    ForecastDataSource {
+    // private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance
+    // private val dataMapper: DbDataMapper = DbDataMapper()
 
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = {id} AND ${DayForecastTable.DATE} >= {date}"
         val dailyForecast = select(DayForecastTable.NAME).
             where(dailyRequest, "id" to zipCode, "date" to date).
