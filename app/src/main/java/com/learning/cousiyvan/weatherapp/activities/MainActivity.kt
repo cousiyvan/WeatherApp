@@ -11,6 +11,7 @@ import com.learning.cousiyvan.weatherapp.adapters.ForecastListAdapter
 import com.learning.cousiyvan.weatherapp.data.Request
 import com.learning.cousiyvan.weatherapp.domain.commands.RequestForecastCommand
 import com.learning.cousiyvan.weatherapp.domain.model.Forecast
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val forecastList = findViewById(R.id.forecast_list) as RecyclerView
+        // val forecastList = findViewById(R.id.forecast_list) as RecyclerView
         forecastList.layoutManager = LinearLayoutManager(this)
         // forecastList.adapter = ForecastListAdapter(items)
 
