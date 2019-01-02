@@ -25,7 +25,7 @@ class ServerDataMapper {
     }
 
     private fun convertForecastItemToDomain(forecast: Forecast) = with(forecast) {
-        ModelForecast(dt, weather[0].description, temp_max.toInt(), temp_min.toInt(),
+        ModelForecast(-1, dt, weather[0].description, temp_max.toInt(), temp_min.toInt(),
             generateIconUrl(weather[0].icon))
     }
 

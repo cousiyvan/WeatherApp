@@ -2,8 +2,11 @@ package com.learning.cousiyvan.weatherapp.ui.utils
 
 import android.content.Context
 import android.view.View
+import android.widget.TextView
 
-class ViewExtensions {
-    val View.ctx: Context
-        get() = context
-}
+val View.ctx: Context
+    get() = context
+
+var TextView.textColor: Int
+    get() = currentTextColor
+    set(v) = setTextColor(v)
