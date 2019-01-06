@@ -9,7 +9,7 @@ import com.learning.cousiyvan.weatherapp.extensions.firstResult
 class ForecastProvider(private val sources: List<ForecastDataSource> = ForecastProvider.SOURCES) {
     companion object {
         const val DAY_IN_MILLIS = 1000 * 60 * 60 * 24
-        val SOURCES = listOf(ForecastDb(), ForecastServer())
+        val SOURCES by lazy { listOf(ForecastDb(), ForecastServer()) }
     }
 
     private fun todayTimeSpan() = System.currentTimeMillis() / DAY_IN_MILLIS * DAY_IN_MILLIS

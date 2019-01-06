@@ -1,4 +1,4 @@
-package com.learning.cousiyvan.weatherapp
+package com.learning.cousiyvan.test
 
 import org.junit.Test
 
