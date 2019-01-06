@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import com.learning.cousiyvan.weatherapp.R
 import com.learning.cousiyvan.weatherapp.adapters.ForecastListAdapter
 import com.learning.cousiyvan.weatherapp.domain.commands.RequestForecastCommand
+import com.learning.cousiyvan.weatherapp.ui.utils.DelegatesExt
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
         "Sun 6/29 - Sunny - 31/17"
     )
 
+    private var zipCode: Long by DelegatesExt.preference(this,
+        SettingsActivity.ZIP_CODE,
+        SettingsActivity.DEFAULT_ZIP
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,16 +39,23 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
         // forecastList.adapter = ForecastListAdapter(items)
         attachToScroll(forecastList)
 
-        doAsync() {
-            val result = RequestForecastCommand(94043).execute()
-            uiThread {
-                val adapter = ForecastListAdapter(result, {
-                    // toast(it.description)
-                    startActivity<DetailActivity>(DetailActivity.ID to it.id, DetailActivity.CITY_NAME to result.city)
-                })
-                forecastList.adapter = adapter
-                toolbarTitle = "${result.city} (${result.country})"
-            }
+        loadForecast()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadForecast()
+    }
+
+    private fun loadForecast() = doAsync() {
+        val result = RequestForecastCommand(zipCode).execute()
+        uiThread {
+            val adapter = ForecastListAdapter(result, {
+                // toast(it.description)
+                startActivity<DetailActivity>(DetailActivity.ID to it.id, DetailActivity.CITY_NAME to result.city)
+            })
+            forecastList.adapter = adapter
+            toolbarTitle = "${result.city} (${result.country})"
         }
     }
 }

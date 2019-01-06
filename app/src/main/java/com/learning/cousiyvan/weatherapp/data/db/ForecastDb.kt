@@ -32,10 +32,7 @@ class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelp
             .byId(id)
             .parseOpt { DayForecast(HashMap(it)) }
 
-        if (forecast != null)
-            dataMapper.convertDayToDomain(forecast)
-        else
-            null
+        forecast?.let { dataMapper.convertDayToDomain(it) }
     }
 
 

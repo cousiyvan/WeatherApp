@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.learning.cousiyvan.weatherapp.R
 import com.learning.cousiyvan.weatherapp.ui.App
+import com.learning.cousiyvan.weatherapp.ui.utils.ctx
 import com.learning.cousiyvan.weatherapp.ui.utils.slideEnter
 import com.learning.cousiyvan.weatherapp.ui.utils.slideExit
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
@@ -23,7 +25,7 @@ interface ToolbarManager {
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_settings -> App.instance.toast("Settings")
+                R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
                 else -> App.instance.toast("Unknown option")
             }
             true
