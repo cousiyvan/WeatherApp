@@ -24,7 +24,7 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                        android:value="com.learning.cousiyvan.weatherapp.ui.activities.MainActivity" />
         </activity>
-        <activity android:name="com.learning.cousiyvan.weatherapp.ui.activities.activity_settings"
+        <activity android:name="com.learning.cousiyvan.weatherapp.ui.activities.SettingsActivity"
                   android:label="@string/settings" />
     </application>
 

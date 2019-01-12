@@ -26,6 +26,7 @@ interface ToolbarManager {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
+                R.id.action_test -> App.instance.toast("This is a simple test")
                 else -> App.instance.toast("Unknown option")
             }
             true

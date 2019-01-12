@@ -41,7 +41,7 @@ class ExampleInstrumentedTest {
     @get: Rule
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
-    @Test
+    // @Test
     fun itemClickNAvigatesToDetail() {
         onView(withId(R.id.forecastList)).perform(RecyclerViewActions
             .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
@@ -49,7 +49,8 @@ class ExampleInstrumentedTest {
             .check(matches(isAssignableFrom(TextView::class.java)))
     }
 
-    @Test fun modifyZipCode_changesToolbarTitle() {
+    // @Test
+    fun modifyZipCode_changesToolbarTitle() {
         openActionBarOverflowOrOptionsMenu(activityRule.activity)
         onView(withText(R.string.settings)).perform(click())
         onView(withId(R.id.cityCode)).perform(replaceText("28830"))
